@@ -6,13 +6,21 @@ public class GameContainer implements Runnable {
 	private Thread thread;
 	private boolean running = false;
 	private final double UPDATE_CAP = 1.0/60.0;
+	private int width = 320, height = 240;
+	private float scale = 3f;
+	private String title = "amathEngine";
+	
+	//calling my classes
+	private Window win;
 
 	//initialize gc do the following
 	public GameContainer() {
 		
 	}
-	
+
 	public void start() {
+		
+		win = new Window(this);
 		
 		//setting the new thread
 		thread = new Thread(this);
@@ -34,8 +42,15 @@ public class GameContainer implements Runnable {
 		double pTime = 0;
 		double uTime = 0;
 		
+			//the fps
+		double frTime = 0;
+		int frames = 0;
+		int fps = 0;
+		
 		//when running
 		while(running) {
+			
+			render = false;
 			
 			//sees the passing of time
 			fTime = System.nanoTime() / 1000000000.0;
@@ -43,16 +58,31 @@ public class GameContainer implements Runnable {
 			lTime = fTime;
 			
 			uTime += pTime;
+			frTime += pTime;
 			
 			while(uTime >= UPDATE_CAP) {
 				
 				uTime -= UPDATE_CAP;
 				//render / update at a set framerate
 				render = true;
+				
 				//TODO: update game
 				
+				//calculating FPS
+				if(frTime >= 1.0) {
+					
+					frTime = 0;
+					fps = frames;
+					frames = 0;
+					System.out.println("FPS: " + fps);
+				}
+				
 				if(render) {
-					//TODO: update game
+					//TODO: render game
+					win.update();
+					
+					//fps calculation
+					frames++;
 				}
 				
 				else {
@@ -68,9 +98,52 @@ public class GameContainer implements Runnable {
 				}
 			}
 		}
+		dispose();
 	}
 	
 	public void dispose() {
 		
 	}
+
+
+	public static void main(String args[]) {
+	
+		//calling gc
+		GameContainer gc = new GameContainer();
+		gc.start();
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public float getScale() {
+		return scale;
+	}
+
+	public void setScale(float scale) {
+		this.scale = scale;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 }
+
+
