@@ -12,6 +12,7 @@ public class GameContainer implements Runnable {
 	
 	//calling my classes
 	private Window win;
+	private Render ren;
 
 	//initialize gc do the following
 	public GameContainer() {
@@ -21,6 +22,7 @@ public class GameContainer implements Runnable {
 	public void start() {
 		
 		win = new Window(this);
+		ren = new Render(this);
 		
 		//setting the new thread
 		thread = new Thread(this);
@@ -79,6 +81,7 @@ public class GameContainer implements Runnable {
 				
 				if(render) {
 					//TODO: render game
+					ren.clear();
 					win.update();
 					
 					//fps calculation
@@ -144,6 +147,11 @@ public class GameContainer implements Runnable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+	public Window getWin() {
+		return win;
+	}
+	
 }
 
 

@@ -60,4 +60,13 @@ public class Window {
 		
 		bs.show();
 	}
+
+	public BufferedImage getImage() {
+		return image;
+	}
+
+	public Canvas getCanvas() {
+		return canvas;
+	}
+	
 }
