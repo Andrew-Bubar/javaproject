@@ -1,5 +1,7 @@
 package com.amath.engine;
 
+import java.awt.event.KeyEvent;
+
 public class GameContainer implements Runnable {
 	
 	//Variables
@@ -13,6 +15,7 @@ public class GameContainer implements Runnable {
 	//calling my classes
 	private Window win;
 	private Render ren;
+	private Input input;
 
 	//initialize gc do the following
 	public GameContainer() {
@@ -23,6 +26,7 @@ public class GameContainer implements Runnable {
 		
 		win = new Window(this);
 		ren = new Render(this);
+		input = new Input(this);
 		
 		//setting the new thread
 		thread = new Thread(this);
@@ -69,6 +73,7 @@ public class GameContainer implements Runnable {
 				render = true;
 				
 				//TODO: update game
+				input.update();
 				
 				//calculating FPS
 				if(frTime >= 1.0) {
