@@ -16,10 +16,11 @@ public class GameContainer implements Runnable {
 	private Window win;
 	private Render ren;
 	private Input input;
+	private AbstractGame game;
 
 	//initialize gc do the following
-	public GameContainer() {
-		
+	public GameContainer(AbstractGame game) {
+		this.game = game;
 	}
 
 	public void start() {
@@ -73,7 +74,7 @@ public class GameContainer implements Runnable {
 				render = true;
 				
 				//TODO: update game
-				input.update();
+				game.update(this, (float)UPDATE_CAP);
 				
 				//calculating FPS
 				if(frTime >= 1.0) {
@@ -85,7 +86,7 @@ public class GameContainer implements Runnable {
 				}
 				
 				if(render) {
-					//TODO: render game
+					game.render(this, ren);
 					ren.clear();
 					win.update();
 					
@@ -117,8 +118,8 @@ public class GameContainer implements Runnable {
 	public static void main(String args[]) {
 	
 		//calling gc
-		GameContainer gc = new GameContainer();
-		gc.start();
+		//GameContainer gc = new GameContainer();
+		//gc.start();
 	}
 
 	public int getWidth() {
@@ -156,7 +157,13 @@ public class GameContainer implements Runnable {
 	public Window getWin() {
 		return win;
 	}
-	
+
+	public Input getInput() {
+		return input;
+	}
+	public void print(String s) {
+		System.out.println(s);
+	}
 }
 
 
