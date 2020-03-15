@@ -16,25 +16,20 @@ public class Window {
 	private Canvas canvas;
 	private BufferStrategy bs;
 	private Graphics g;
-	
-	public Window(GameContainer gc){
-		
-		//setting basic vars
-		image = new BufferedImage(
-				gc.getWidth(), gc.getHeight(), BufferedImage.TYPE_INT_RGB
-				);
+
+	public Window(GameContainer gc) {
+
+		// setting basic vars
+		image = new BufferedImage(gc.getWidth(), gc.getHeight(), BufferedImage.TYPE_INT_RGB);
 		canvas = new Canvas();
-		Dimension s = new Dimension(
-				(int) (gc.getWidth() * gc.getScale()),
-				(int) (gc.getHeight() * gc.getScale())
-				);
-		
-		//applying vars to canvas
+		Dimension s = new Dimension((int) (gc.getWidth() * gc.getScale()), (int) (gc.getHeight() * gc.getScale()));
+
+		// applying vars to canvas
 		canvas.setPreferredSize(s);
 		canvas.setMaximumSize(s);
 		canvas.setMinimumSize(s);
-		
-		//creating the frames
+
+		// creating the frames
 		frame = new JFrame(gc.getTitle());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
@@ -43,21 +38,17 @@ public class Window {
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setVisible(true);
-		
-		//setting the bs
+
+		// setting the bs
 		canvas.createBufferStrategy(2);
 		bs = canvas.getBufferStrategy();
 		g = bs.getDrawGraphics();
 	}
-	
+
 	public void update() {
-		
-		g.drawImage(
-				image, 0, 0, 
-				canvas.getWidth(), canvas.getHeight(),
-				null
-				);
-		
+
+		g.drawImage(image, 0, 0, canvas.getWidth(), canvas.getHeight(), null);
+
 		bs.show();
 	}
 
@@ -72,5 +63,5 @@ public class Window {
 	public JFrame getFrame() {
 		return frame;
 	}
-	
+
 }

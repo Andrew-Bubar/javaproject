@@ -9,28 +9,27 @@ public class Image {
 
 	private int width, height;
 	private int[] p;
-	
+
 	public Image(String path) {
-		
-		//making sure its clean
+
+		// making sure its clean
 		BufferedImage image = null;
-		
-		//grabbinjg the class
+
+		// grabbinjg the class
 		try {
 			image = ImageIO.read(Image.class.getResourceAsStream(path));
-		} 
-		catch (IOException e) {
-			
+		} catch (IOException e) {
+
 			e.printStackTrace();
 		}
-		
-		//get the size
+
+		// get the size
 		width = image.getWidth();
 		height = image.getHeight();
-		
-		//get the pixel data
+
+		// get the pixel data
 		p = image.getRGB(0, 0, width, height, null, 0, width);
-		
+
 		image.flush();
 	}
 
